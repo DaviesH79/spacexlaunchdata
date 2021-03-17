@@ -2,6 +2,8 @@
 
 class Json_to_csv{
 
+	public $firstRowArray= [];
+
 	public function execute(){
 		$data = $this->readFileContents();
 		$cleanData = $this->cleanData($data);
@@ -11,21 +13,31 @@ class Json_to_csv{
 
 	public function buildColumnNames($array){
 	
-		$firstRowArray = [];	
 		// iterate array to find all columns
 		foreach($array as $key => $value){
+			print_r("Key: {$key} \n");
+			print_r("Value: \n");
 			var_dump($value);
 			if(is_array($value)){
-				print_r('is an array');
+				print_r("Is an array\n");
 				$name = array_key_first($value);
-				$firstRowArray[] = $key . "." . $name;
+				$this->firstRowArray[] = $key . "." . $name;
 				unset($value[$name]);
+				$newFirstKey = array_key_first($value);
+				$newKey = $key . "." . $newFirstKey;
+				$value[$newKey] = $key;
+				unset($value[$newFirstKey]);
+				var_dump($value);
 				$this->buildColumnNames($value);
 			} else {
-				$firstRowArray[] = $key;
+				$this->firstRowArray[] = $key;
+				print_r("FirstRowArray: \n");
+				var_dump($this->firstRowArray);
 			} 
 		}
-			$firstRow = implode(",", $firstRowArray);
+			var_dump($this->firstRowArray);
+			$firstRow = implode(",", $this->firstRowArray);
+			//print_r("FirstRow: \n");
 			var_dump($firstRow);
 	}
 
