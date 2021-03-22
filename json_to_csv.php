@@ -39,7 +39,7 @@ class Json_to_csv
         $firstRow[] = $this->firstRow;
         $finalFinal = array_merge($firstRow, $final);
         $csv = (implode("\n", $finalFinal));
-        file_put_contents('launch.csv', $csv);
+        file_put_contents('spacex.csv', $csv);
     }
 		
 		/** using recursion, dig into the nested data

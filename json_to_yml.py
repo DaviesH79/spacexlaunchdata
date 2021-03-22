@@ -8,6 +8,6 @@ with open('launchdata.json') as json_file:
 	dataClean = data['data']
 
 # using the yaml library, write the dictionary to a yaml file
-with open('launchdata.yml', 'w') as file:
+with open('spacex.yml', 'w') as file:
 	launchData = yaml.safe_dump(dataClean, file, encoding='utf-8', allow_unicode=True)
 
