@@ -124,7 +124,7 @@ class Json_to_csv
 		/** read the file and return its contents **/
     public function readFileContents()
     {
-        $data = file_get_contents('launchdata.txt');
+        $data = file_get_contents('launchdata.json');
         return $data;
     }
 }

@@ -3,7 +3,7 @@ import json
 from pprint import pprint
 
 # open launchdata file and conver the json to a dictionary
-with open('launchdata.txt') as json_file:
+with open('launchdata.json') as json_file:
 	data = json.load(json_file)
 	dataClean = data['data']
 
