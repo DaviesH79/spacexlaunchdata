@@ -17,6 +17,9 @@ class Json_to_csv
         $this->buildRows($formattedData);
     }
 
+		/** use columnNames to build the row data 
+			@param $data array cleaned up data
+		 **/
     public function buildRows($data)
     {
         $dataLength = count($data);
@@ -38,9 +41,16 @@ class Json_to_csv
         $csv = (implode("\n", $finalFinal));
         file_put_contents('launch.csv', $csv);
     }
-
+		
+		/** using recursion, dig into the nested data
+ 			@param $data array
+			@param $count int
+			@param $column mixed - could be string, could be array
+		**/	
     public function getNestedValues($data, $count, $column)
     {
+				$columnDataArray = [];
+				$dataToString = '';
         if (isset($data[$column]) && is_array($data[$column])) {
             $dataArray = $data[$column];
             foreach ($dataArray as $columnData){
@@ -62,6 +72,9 @@ class Json_to_csv
         }
     }
 
+		/** build the column names by iterating data and using recursion for nested data 
+			@param $array array
+		**/
     public function buildColumnNames($array)
     {
         // iterate array to find all columns
@@ -97,13 +110,18 @@ class Json_to_csv
         $this->firstRow = $firstRow;
     }
 
-    public function formatData($data)
+    /** Clean up the data 
+			@param $data string
+			@return $launchData array
+		**/
+		public function formatData($data)
     {
         $jsonArray = json_decode($data, true);
         $launchData = $jsonArray['data']['launches'];
         return $launchData;
     }
 
+		/** read the file and return its contents **/
     public function readFileContents()
     {
         $data = file_get_contents('launchdata.txt');
